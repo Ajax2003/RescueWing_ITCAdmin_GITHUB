@@ -11,9 +11,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/adminpanel', function () {
-    return view('admin.admin_panel');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -28,7 +25,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 //REDIRECTS TO ADMIN DASHBOARD
-Route::get('/adminpanel', [AdminController::class, 'index'])->middleware(['auth', 'admin']);
+Route::get('admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin']);
 
 //DASHBOARD ADMIN TO ADMINISTRATION 
 Route::get('/admin', [AdminUserController::class, 'index'])->name('admin.useradmin');

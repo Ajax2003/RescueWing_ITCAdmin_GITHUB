@@ -41,31 +41,11 @@
                   <!-- Management Text -->
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu-Dashboard -->
-                    <a href="{{ url('/dashboard') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                    <a href="{{ url('admin/dashboard') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
-                    <!-- SubMenu-Reports -->
-                    <a href="{{ url('/reports') }}" class=" text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                        <i class="bi bi-flag-fill"></i> Reports
-                    </a>
-                <!-- Users Text -->
-            <hr class="border-1 border-blue-800"></hr>
-            <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Users</h3>
-                    <!-- SubMenu Administration  -->
                    <a href="{{ url('/admin') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-fill"></i> Administration
-                   </a>
-                   <!-- SubMenu-Emergency Facilities -->
-                   <a href="{{ url('/facility') }}" class=" text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                     <i class="bi bi-person-fill"></i> Emergency Facilities
-                   </a>
-                   <!-- SubMenu-Barangay -->
-                   <a href="{{ url('/barangay') }}" class=" text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                     <i class="bi bi-bank2"></i> Barangay
-                   </a>
-                   <!-- SubMenu-Students -->
-                   <a href="{{ url('/students') }}" class=" text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                     <i class="bi bi-backpack-fill"></i> Students
                    </a>
                 <hr class="border-1 border-blue-800"></hr>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
@@ -78,13 +58,22 @@
                       <i class="bi bi-gear-fill"></i> Settings
                    </a>
                      <!-- SubMenu-Logout -->
-                   <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
+                   <!--<form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                      @csrf 
                      @method('DELETE')
                      <div class="flex items-center space-x-4">
                          <button class="btn btn-danger py-2 px-36 pl-4 text-blue-900 text-md text-left border border-white rounded-md bg-white transition duration-200 hover:bg-red-800 hover:text-white hover:border-red-800" type="submit">
                          <i class="bi bi-box-arrow-right"></i>Logout</button>
                     </form>   
+                    -->
+                    <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                       <x-responsive-nav-link :href="route('logout')" 
+                            onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                            {{ __('Log Out') }}
+                       </x-responsive-nav-link>
+                   </form>
                </nav>
         </div>
 

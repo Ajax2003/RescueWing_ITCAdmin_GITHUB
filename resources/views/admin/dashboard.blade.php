@@ -41,12 +41,9 @@
                 <!-- Management Text -->
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu-Dashboard -->
-                    <a href="{{ url('/adminpanel') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                    <a href="{{ url('/dashboard') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
-
-            <hr class="border-1 border-blue-800"></hr>
-            <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu Administration  -->
                    <a href="{{ url('/admin') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-fill"></i> List of Users
@@ -94,10 +91,41 @@
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Emergency Board</h3>
           <div class="mt-8">
 
-          <div class="bg-white shadow rounded-lg p-6">
-              <div class="flex items-center justify-center h-96">
-                <span class="text-zinc-500">Content goes here</span>
-              </div>
+          <div class="bg-white shadow rounded-lg p-6 overflow-x-auto"> <!-- Table container -->
+                    <div class="flex items-center">
+                            <table class="table table-hover w-full mb-60 table-md" id="userTableBody"> <!-- Table container -->
+                              <thead class="text-white rounded-md">
+                                  <tr class="bg-blue-900"> <!-- Table header row -->
+                                      <!-- Column headers -->
+                                      <th class="px-4 py-2 text-left">Types of Emergencies</th>
+                                      <th class="px-12 py-2 text-left">List of Users</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
+                                  <td class="px-4 py-2 text-left">MEDICAL: Allergy Reaction, Seizures, and Burns</td>
+                                  <td class="px-4 py-2 text-left">User(Student, Faculty, Staff), Admin, Barangay (Tanod, Kagawad, Secretary, Chairman), Emergency Facilities (Clinic, Security, OSA)</td>
+                                  </td>
+                              </tr>
+                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
+                                  <td class="px-4 py-2 text-left">CRIME: Thief, Rape, and Physical Abuse</td>
+                                  <td class="px-4 py-2 text-left">Admin</td>
+                                  </td>
+                              </tr>
+                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
+                                  <td class="px-4 py-2 text-left">OTHERS: Fire, Earthquake, and Flood</td>
+                                  <td class="px-4 py-2 text-left">Barangay (Tanod, Kagawad, Secretary, Chairman)</td>
+                                  </td>
+                              </tr>
+                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
+                                  <td class="px-4 py-2 text-left"></td>
+                                  <td class="px-4 py-2 text-left"> Emergency Facilities (Clinic, Security, OSA)</td>
+                                  </td>
+                              </tr>
+                        </tbody>
+                      </table>
+                        </div>
+                  </div>
             </div>
         </main>
     </div>

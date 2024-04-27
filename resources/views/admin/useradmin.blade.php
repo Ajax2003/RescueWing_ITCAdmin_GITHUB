@@ -41,12 +41,9 @@
                 <!-- Management Text -->
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu-Dashboard -->
-                    <a href="{{ url('/adminpanel') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                    <a href="{{ url('admin/dashboard') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
-
-            <hr class="border-1 border-blue-800"></hr>
-            <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu Administration  -->
                    <a href="{{ url('/admin') }}" class="bg-blue-600 text-white block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-fill"></i> List of Users
