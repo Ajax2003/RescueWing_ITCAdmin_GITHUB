@@ -45,18 +45,15 @@
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
                    <a href="{{ url('/admin') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                     <i class="bi bi-person-fill"></i> Administration
+                     <i class="bi bi-person-fill"></i> User Management
                    </a>
                 <hr class="border-1 border-blue-800"></hr>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
                      <!-- SubMenu-Profile -->
-                   <a href="{{ url('/profile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('/adminprofile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-circle"></i> Profile
                    </a>
-                    <!-- SubMenu-Settings -->
-                   <a href="{{ url('/settings') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      <i class="bi bi-gear-fill"></i> Settings
-                   </a>
+
                      <!-- SubMenu-Logout -->
                    <!--<form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
                      @csrf 
@@ -71,6 +68,7 @@
                        <x-responsive-nav-link :href="route('logout')" 
                             onclick="event.preventDefault();
                             this.closest('form').submit();">
+                            <i class="bi bi-box-arrow-right"></i>
                             {{ __('Log Out') }}
                        </x-responsive-nav-link>
                    </form>
@@ -86,12 +84,12 @@
 
         <main class="bg-blue-900 flex-1 overflow-x-hidden overflow-y-auto">
         <div class="container mx-auto px-6 py-8">
-            <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Administration</h3>
-            <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">List of Admins</h3>
+            <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Management</h3>
+            <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">User Management - Add User</h3>
         </div>
         <div class="bg-white shadow rounded-lg p-6 overflow-x-auto"> 
             <h3 class="text-[-60px]">{{ $title }}</h3>
-                <form class="form1" method="POST" action="@if (isset($edit->id)) {{route('user.update', ['id' => $edit->id]) }} @else {{route('user.store') }} @endif" enctype="multipart/form-data">
+                <form class="form1" method="POST" action="{{ route('user.store') }}" enctype="multipart/form-data">
                 @csrf
                     <div class="mb-3">  
                         <label for="name" class="block text-sm font-medium text-gray-700">Name</label>

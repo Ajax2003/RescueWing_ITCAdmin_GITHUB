@@ -41,7 +41,7 @@
                 <!-- Management Text -->
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu-Dashboard -->
-                    <a href="{{ url('admin/dashboard') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                    <a href="{{ url('admin/dashboard') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
                     <!-- SubMenu Administration  -->
@@ -50,7 +50,7 @@
                    </a>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
                      <!-- SubMenu-Profile -->
-                   <a href="{{ url('/adminprofile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('/adminprofile') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-circle"></i> Profile
                    </a>
                      <!-- 
@@ -89,59 +89,26 @@
           <div class="mt-8">
 
           <div class="bg-white shadow p-6 overflow-x-auto"> <!-- Table container -->
-                   <div class="flex items-center border border-blue-900 border-2 rounded-lg">
-                            <table class="table table-hover w-full mb-60 table-md"> <!-- Table container -->
-                              <thead class="text-white">
-                                  <tr class="bg-blue-900"> <!-- Table header row -->
-                                      <!-- Column headers -->
-                                      <th class="px-4 py-2 text-left text-[20px]">Types of Emergencies</th>
-                                      <th class="px-12 py-2 text-left text-[20px]">List of Users</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Allergy Reaction</td>
-                                  <td class="px-4 py-2 text-left">User(Students, Faculty, Staff)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Seizure</td>
-                                  <td class="px-4 py-2 text-left">Admin</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Burns</td>
-                                  <td class="px-4 py-2 text-left">Barangay (Tanod, Kagawad, Secretary, Chairman)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Thief</td>
-                                  <td class="px-4 py-2 text-left">Emergency Facilities (Clinic, Security, OSA)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Rape</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Physical Abuse</td>                    
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Fire</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Earthquake</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Flood</td>
-                                  </td>
-                              </tr>
-                        </tbody>
-                      </table>
-                  </div>
+                   <div class="flex flex-col items-center border border-blue-900 border-2 rounded-lg mb-60">
+                   <form class="form1" method="POST" action="{{ route('adminprofile.update', ['id' => $edit->id]) }}" enctype="multipart/form-data">
+                       @csrf
+                            <h1 class="text-white bg-blue-900 text-[30px] mt-2 mb-4 px-72 py- rounded-lg">Edit Profile</h1>
+                            <label for="name" class="block text-blue-900">Name:</label>
+                            <input type="text" id="name" class="form-control border-blue-900 border-2 rounded-lg mb-4" placeholder="Enter Updated Name">
+
+                            <label for="email" class="block text-blue-900">Email:</label>
+                            <input type="text" id="email" class="form-control border-blue-900 border-2 rounded-lg mb-4" placeholder="Enter Updated Email">
+                    
+                            <label for="password" class="block text-blue-900">Password:</label>
+                            <input type="password" id="password" class="form-control border-blue-900 border-2 rounded-lg mb-4" placeholder="Enter Updated Password">
+
+                            
+                            <div class="flex justify-between">
+                                <input type="submit" value="Submit" class="btn btn-primary px-4 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <a href="{{ route('admin.useradmin') }}" class="btn btn-danger px-4 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">Cancel</a>
+                            </div>
+                    </div>
+                    </form>
                 </div>
             </div>
         </main>

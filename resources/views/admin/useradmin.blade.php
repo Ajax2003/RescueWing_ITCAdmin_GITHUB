@@ -46,17 +46,14 @@
                     </a>
                     <!-- SubMenu Administration  -->
                    <a href="{{ url('/admin') }}" class="bg-blue-600 text-white block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                     <i class="bi bi-person-fill"></i> List of Users
+                     <i class="bi bi-person-fill"></i> User Management
                    </a>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
                      <!-- SubMenu-Profile -->
-                   <a href="{{ url('/profile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('/adminprofile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-circle"></i> Profile
                    </a>
                     <!-- SubMenu-Settings -->
-                   <a href="{{ url('/settings') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
-                      <i class="bi bi-gear-fill"></i> Settings
-                   </a>
                      <!-- SubMenu-Logout -->
                     <!--
                 <form action="{{ route('logout') }}" method="POST" class="d-flex" role="search">
@@ -73,6 +70,7 @@
                        <x-responsive-nav-link :href="route('logout')" 
                             onclick="event.preventDefault();
                             this.closest('form').submit();">
+                            <i class="bi bi-box-arrow-right"></i>
                             {{ __('Log Out') }}
                        </x-responsive-nav-link>
                    </form>
@@ -116,15 +114,16 @@
                 <div class="mt-8">
                     <!-- Start of main content -->
                   <div class="bg-white shadow rounded-lg p-6 overflow-x-auto"> <!-- Table container -->
-                    <div class="flex items-center">
+                    <div class="flex items-center border border-blue-900 border-2 rounded-lg">
                             <table class="table table-hover w-full mb-60 table-md" id="userTableBody"> <!-- Table container -->
                               <thead class="text-white rounded-md">
                                   <tr class="bg-blue-900"> <!-- Table header row -->
-                                      <th class="px-4 py-2 text-left">#</th>     <!-- Column headers -->
-                                      <th class="px-4 py-2 text-left">Name</th>
-                                      <th class="px-12 py-2 text-left">Email</th>
-                                      <th class="px-4 py-2 text-left">User Type</th>
-                                      <th class="px-4 py-2 text-left">Action</th>
+                                      <th class="px-4 py-2 text-left text-[20px]">#</th>     <!-- Column headers -->
+                                      <th class="px-4 py-2 text-left text-[20px]">Username</th>
+                                      <th class="px-4 py-2 text-left text-[20px]">Name</th>
+                                      <th class="px-12 py-2 text-left text-[20px]">Email</th>
+                                      <th class="px-4 py-2 text-left text-[20px]">UserType</th>
+                                      <th class="px-4 py-2 text-left text-[20px]">Action</th>
                                   </tr>
                               </thead>
                           <tbody>
@@ -132,15 +131,16 @@
                             @forelse($users->sortBy('id') as $index => $row)
                                 <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
                                   <td class="px-4 py-2 text-left">{{++$counter }}</td>
+                                  <td class="px-4 py-2 text-left">{{$row->username}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->name}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->email}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->usertype}}</td>
                                   <td class="px-4 py-2 text-left">
-                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary hover:text-green-800">Edit</a>
+                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-4 py-1 justify-center">Edit</a>
                                     <form action="{{ route('user.delete', $row->id) }}" method="POST" id="delete-form-{{ $row->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger hover:text-red-800" onClick="confirmDeleteUser({{ $row->id }})">Delete</button>
+                                    <button type="button" class="btn btn-danger border border-bg-700 bg-red-700 text-white px-2" onClick="confirmDeleteUser({{ $row->id }})">Delete</button>
                                     </form>
                                   </td>
                               </tr>
@@ -191,14 +191,15 @@
         const cells = row.querySelectorAll('td');
 
         // Check if the row contains at least four cells (for name, email, user type, and action)
-        if (cells.length >= 4) {
+        if (cells.length >= 5) {
             // Extract the text content of the name, email, and user type cells, trim leading and trailing whitespaces, and convert to lowercase
-            const name = cells[1].textContent.trim().toLowerCase(); // Name cell is at index 1
-            const email = cells[2].textContent.trim().toLowerCase(); // Email cell is at index 2
-            const usertype = cells[3].textContent.trim().toLowerCase(); // User type cell is at index 3
+            const username = cells[1].textContent.trim().toLowerCase(); // Userame cell is at index 1
+            const name = cells[2].textContent.trim().toLowerCase(); // Name cell is at index 2
+            const email = cells[3].textContent.trim().toLowerCase(); // Email cell is at index 3
+            const usertype = cells[4].textContent.trim().toLowerCase(); // User type cell is at index 4
 
             // Check if the search term is empty or if it matches any of the name, email, or user type
-            if (!searchTerm || name.includes(searchTerm) || email.includes(searchTerm) || usertype.includes(searchTerm)) {
+            if (!searchTerm || username.includes(searchTerm)|| name.includes(searchTerm) || email.includes(searchTerm) || usertype.includes(searchTerm)) {
                 // Show the row if there's a match or if there's no search term
                 row.style.display = '';
             } else {

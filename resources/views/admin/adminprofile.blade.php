@@ -41,7 +41,7 @@
                 <!-- Management Text -->
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Management</h3>
                     <!-- SubMenu-Dashboard -->
-                    <a href="{{ url('admin/dashboard') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                    <a href="{{ url('admin/dashboard') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
                     <!-- SubMenu Administration  -->
@@ -50,7 +50,7 @@
                    </a>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
                      <!-- SubMenu-Profile -->
-                   <a href="{{ url('/adminprofile') }}" class="text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('/adminprofile') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-circle"></i> Profile
                    </a>
                      <!-- 
@@ -89,59 +89,11 @@
           <div class="mt-8">
 
           <div class="bg-white shadow p-6 overflow-x-auto"> <!-- Table container -->
-                   <div class="flex items-center border border-blue-900 border-2 rounded-lg">
-                            <table class="table table-hover w-full mb-60 table-md"> <!-- Table container -->
-                              <thead class="text-white">
-                                  <tr class="bg-blue-900"> <!-- Table header row -->
-                                      <!-- Column headers -->
-                                      <th class="px-4 py-2 text-left text-[20px]">Types of Emergencies</th>
-                                      <th class="px-12 py-2 text-left text-[20px]">List of Users</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Allergy Reaction</td>
-                                  <td class="px-4 py-2 text-left">User(Students, Faculty, Staff)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Seizure</td>
-                                  <td class="px-4 py-2 text-left">Admin</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Burns</td>
-                                  <td class="px-4 py-2 text-left">Barangay (Tanod, Kagawad, Secretary, Chairman)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Thief</td>
-                                  <td class="px-4 py-2 text-left">Emergency Facilities (Clinic, Security, OSA)</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Rape</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Physical Abuse</td>                    
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Fire</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Earthquake</td>
-                                  </td>
-                              </tr>
-                              <tr class="hover:bg-gray-100 border-b border-gray-200 text-[15px] font-bold text-blue-900 ">
-                                  <td class="px-4 py-2 text-left">Flood</td>
-                                  </td>
-                              </tr>
-                        </tbody>
-                      </table>
-                  </div>
+                   <div class="flex flex-col items-center border border-blue-900 border-2 rounded-lg mb-60">
+                            <h1 class="text-white bg-blue-900 text-[30px] mt-2 mb-4 px-72 py- rounded-lg">Edit Profile</h1>
+                            <h2 class="text-blue-900 font-bold px-10 text-[15px]">Name:  {{Auth::user()->name ?? ''}}</h2> 
+                            <h2 class="text-blue-900 font-bold px-10 text-[15px]">Email: {{Auth::user()->email ?? ''}}</h2>
+                    </div>
                 </div>
             </div>
         </main>
