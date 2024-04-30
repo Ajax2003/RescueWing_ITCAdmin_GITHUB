@@ -45,10 +45,10 @@
                         <i class="bi bi-speedometer"></i> Dashboard
                     </a>
                     <!-- SubMenu Administration  -->
-                   <a href="{{ url('/admin') }}" class="bg-blue-600 text-white block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('/admin') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-fill"></i> User Management
                    </a>
-                   <a href="{{ url('admin/archive') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                   <a href="{{ url('admin/archive') }}" class="bg-blue-600 text-white block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                     <i class="bi bi-archive-fill"></i></i> Archive 
                    </a>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
@@ -91,7 +91,7 @@
         <main class="bg-blue-900 flex-1 overflow-x-hidden overflow-y-auto">
             <div class="container mx-auto px-6 py-8">
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Management</h3>
-                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">List of Users - Active Users</h3>
+                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Archive - Inactive Users</h3>
                 <div class ="text-end">
                   <a href ="{{ route('user.create') }}" class="btn btn-primary px-4 py-2 mt-8 bg-white text-blue-900 border border-white text-[15px] hover:bg-blue-700 hover:text-white hover:border-blue-700 hover:bg-opacity-85">
                   <i class="bi bi-plus-square-fill px-1"></i>Add New User</a>
@@ -138,21 +138,8 @@
                                   <td class="px-4 py-2 text-left">{{$row->name}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->email}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->usertype}}</td>
+                                  <td class="px-4 py-2 text-left">{{$row->status}}</td>
                                   <td class="px-4 py-2 text-left">
-                                  <form action="{{ route('user.status', $row->id) }}" method="POST">
-                                      @csrf
-                                      @method('POST') <button type="submit" class="btn btn-sm 
-                                          @if ($row->status) 
-                                              btn-success bg-blue-900 text-white px-2 justify-center
-                                          @else 
-                                              btn-danger bg-red-700 text-white px-2 justify-center
-                                          @endif">
-                                          {{ $row->status ? 'Active' : 'Inactive' }}
-                                      </button>
-                                  </form>
-                                  </td>
-                                  <td class="px-4 py-2 text-left">
-                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-5 py-1 justify-center hover:bg-blue-600 rounded-lg">Edit</a>
                                     <form action="{{ route('user.archive', $row->id) }}" method="POST" id="archive-form-{{ $row->id }}">
                                         @csrf
                                         @method('POST')

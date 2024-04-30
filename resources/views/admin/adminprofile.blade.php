@@ -48,6 +48,9 @@
                    <a href="{{ url('/admin') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
                      <i class="bi bi-person-fill"></i> User Management
                    </a>
+                   <a href="{{ url('/adminarchive') }}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">
+                     <i class="bi bi-archive-fill"></i></i> Archive 
+                   </a>
                 <h3 class="py-2.5 px-4 text-blue-900 text-[20px] font-semibold">Account</h3>
                      <!-- SubMenu-Profile -->
                    <a href="{{ url('/adminprofile') }}" class="bg-blue-600 text-white text-blue-900 block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-700 hover:text-white">

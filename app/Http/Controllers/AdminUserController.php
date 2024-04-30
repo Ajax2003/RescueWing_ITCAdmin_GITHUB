@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\ArchivedUser;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
@@ -89,16 +90,13 @@ class AdminUserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'usertype' => 'required|in:user,admin,barangay,facility',
-            'password' => 'required|same:password' // Adjust as needed (optional/mandatory)
+           
         ]);
     
         $user = User::findOrFail($id);
         $user->username = $request->username;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->usertype = $request->usertype;
-        $user->password = $request->password;
-    
         $user->save();
     
         Session::flash('success', 'Admin Updated Successfully!');
@@ -108,12 +106,24 @@ class AdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function archive(string $id)
     {
-        $userData = User::findOrFail($id);
-        $userData->delete();
+        $user = User::find($id);
 
-        Session::flash('success', 'Admin Deleted Successfully!');
-        return redirect()->route('admin.useradmin');
+        if ($user) {
+            $archivedUser = new ArchivedUser;
+            $archivedUser->username = $user->username;
+            $archivedUser->name = $user->name;
+            $archivedUser->email = $user->email;
+            $archivedUser->user_id = $user->id;  // Set foreign key value
+            $archivedUser->save();
+    
+            $user->status = 'inactive';
+            $user->save();  // Update user status
+    
+            return back()->with('success', 'User archived successfully!');
+        } else {
+            return back()->with('error', 'User not found!');
+        }
     }
 }

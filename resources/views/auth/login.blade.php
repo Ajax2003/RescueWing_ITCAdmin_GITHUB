@@ -4,18 +4,14 @@
 
     <form method="POST" action="{{ route('login') }}">
         @csrf
+         <!-- Username -->
         <div>
             <x-input-label for="username" :value="__('Username')" />
             <x-text-input id="username" class="mt-1 mb-2 w-full" type="text" name="username" :value="old('username')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            @if ($errors->has('username'))
+              <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            @endif
         </div>
-        <!--
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="email" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-        -->
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
@@ -25,7 +21,9 @@
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            @if ($errors->has('password'))
+                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                            @endif
         </div>
 
         <!-- Remember Me -->

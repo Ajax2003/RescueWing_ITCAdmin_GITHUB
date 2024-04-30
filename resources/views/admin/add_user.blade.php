@@ -94,6 +94,7 @@
                     <div class="mb-3">  
                         <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                         <input type="text" name="username" id="username" class="form-control border block w-full px-3 py-2 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Enter Username" value="@if (isset($edit->id)) {{$edit->username}} @else {{ old('username') }} @endif">
+                        
                         @error('username')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror

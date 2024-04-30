@@ -3,14 +3,16 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminArchiveController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\BarangayController;
+use App\Http\Controllers\StatusController;
 
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/login', function () {
+    return view('auth.login');
 });
 
 
@@ -29,17 +31,20 @@ require __DIR__.'/auth.php';
 //REDIRECTS TO ADMIN DASHBOARD
 Route::get('admin/dashboard', [AdminController::class, 'index'])->middleware(['auth', 'admin']);
 
-//DASHBOARD ADMIN TO ADMINISTRATION 
+//REDIRECT TO ADMINISTRATION 
 Route::get('/admin', [AdminUserController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.useradmin');
+
+//REDIRECT TO ARCHIVE
+Route::get('admin/archive', [AdminArchiveController::class, 'index'])->middleware(['auth', 'admin']);
+
 //ADD-UPDATED-DELETE OF ADMIN USERS
 Route::group(['prefix' => 'admin/user', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/create', [AdminUserController::class, 'create'])->name('user.create'); // Create user form
     Route::post('/add', [AdminUserController::class, 'store'])->name('user.store'); // Store new user
     Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit'); // Edit user form
     Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('user.update'); // Update user
-    Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete'); // Delete user
-    Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('adminprofile.edit'); // Edit user form
-    Route::post('/profile/{id}', [AdminProfileController::class, 'update'])->name('adminprofile.update'); // Edit user form
+    Route::post('/user/archive/{id}', [AdminUserController::class, 'archive'])->name('user.archive');
+    Route::post('user/{id}', [StatusController::class, 'update'])->name('user.status');
 });
 
 //REDIRECTS TO FACILITY DASHBOARD
