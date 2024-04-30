@@ -34,6 +34,7 @@ class AdminUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'username' => 'required|unique:users',
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
@@ -43,6 +44,7 @@ class AdminUserController extends Controller
     
         // Create a new user instance
         $user = User::create([
+            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'usertype' => $request->usertype,
@@ -83,6 +85,7 @@ class AdminUserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
+            'username' => 'required|unique:users',
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'usertype' => 'required|in:user,admin,barangay,facility',
@@ -90,6 +93,7 @@ class AdminUserController extends Controller
         ]);
     
         $user = User::findOrFail($id);
+        $user->username = $request->username;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->usertype = $request->usertype;

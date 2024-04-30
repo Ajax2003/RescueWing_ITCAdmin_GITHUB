@@ -86,11 +86,13 @@
             <div class="container mx-auto px-6 py-8">
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Dashboard</h3>
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Emergency Board</h3>
+                <div class ="text-end">
           <div class="mt-8">
 
           <div class="bg-white shadow p-6 overflow-x-auto"> <!-- Table container -->
                    <div class="flex flex-col items-center border border-blue-900 border-2 rounded-lg mb-60">
-                            <h1 class="text-white bg-blue-900 text-[30px] mt-2 mb-4 px-72 py- rounded-lg">Edit Profile</h1>
+                            <h1 class="text-white bg-blue-900 text-[20px] mt-2 mb-4 px-72 py- rounded-lg">Profile Information</h1>
+                            <h2 class="text-blue-900 font-bold px-10 text-[15px]">Username:  {{Auth::user()->username ?? ''}}</h2> 
                             <h2 class="text-blue-900 font-bold px-10 text-[15px]">Name:  {{Auth::user()->name ?? ''}}</h2> 
                             <h2 class="text-blue-900 font-bold px-10 text-[15px]">Email: {{Auth::user()->email ?? ''}}</h2>
                     </div>

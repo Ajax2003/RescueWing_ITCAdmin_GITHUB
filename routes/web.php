@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin/user', 'middleware' => ['auth', 'admin']], func
     Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit'); // Edit user form
     Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('user.update'); // Update user
     Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete'); // Delete user
+    Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('adminprofile.edit'); // Edit user form
     Route::post('/profile/{id}', [AdminProfileController::class, 'update'])->name('adminprofile.update'); // Edit user form
 });
 
