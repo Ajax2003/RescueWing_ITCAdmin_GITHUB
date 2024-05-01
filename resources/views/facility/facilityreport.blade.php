@@ -3,14 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facility RescueWing</title>
+    <title>Barangay RescueWing</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="./app.js"></script>
     @laravelPWA
     @vite('resources/css/app.css')
+
+
+
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4IewD6AdNgDrG4TCerlz0AjsVhCN_9U4&callback=initMap" async></script>
+
     <script>
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
@@ -19,7 +25,8 @@
             cluster: 'ap1'
         });
 
-    
+
+
         var channel = pusher.subscribe('alert-channel');
         channel.bind('form-submit', function(data) {
             Swal.fire({
@@ -41,6 +48,8 @@
             });
         });
     </script>
+
+
 </head>
 
 <body class="bg-blue-900">
@@ -67,8 +76,10 @@
             <div>
                 <hr class="border-1 border-blue-800 p-2">
                 </hr>
-                <h2 class="text-blue-900 font-bold px-10"> {{Auth::user()->name ?? ''}}</h2>
-                <span class="text-blue-900 px-10">Emergency Facility</span>
+                <h2 class="text-blue-900 font-bold px-10"> {{Auth::user()->username ?? ''}}</h2>
+                <span class="text-blue-900 px-10">Miguel Allen Lorenzo</span>
+                <span class="text-blue-900 px-10">Secretary</span>
+
             </div>
             <!-- nav -->
             <nav>
@@ -97,15 +108,15 @@
                     <i class="bi bi-gear-fill"></i> Settings
                 </a>
                 <!-- SubMenu-Logout -->
-                <form method="POST" action="{{ route('logout') }}">
+                <form>
                     @csrf
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                        <i class="bi bi-box-arrow-right"></i>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    @method('DELETE')
+                    <div class="flex items-center space-x-4">
+                        <button class="btn btn-danger py-2 px-36 pl-4 text-blue-900 text-md text-left border border-white rounded-md bg-white transition duration-200 hover:bg-red-800 hover:text-white hover:border-red-800" type="submit">
+                            <i class="bi bi-box-arrow-right"></i>Logout</button>
+                    </div>
                 </form>
+
             </nav>
         </div>
         <!-- Content -->
@@ -132,12 +143,18 @@
                                     </tr>
                                 </thead>
                                 <tbody id="emergency-data">
-                                   
-                                    <!-- Add more rows as needed -->
+                                    @foreach($emergencies as $emergency)
+                                    <tr>
+                                        <td class="border px-4 py-2">{{ $emergency->name }}</td>
+                                        <td class="border px-4 py-2">{{ $emergency->emergency_type }}</td>
+                                        <td class="border px-4 py-2">{{ $emergency->latitude }}, {{ $emergency->longitude }}</td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
 
             </main>
         </div>

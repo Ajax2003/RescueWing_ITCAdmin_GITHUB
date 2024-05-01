@@ -143,20 +143,21 @@
                                       @csrf
                                       @method('POST') <button type="submit" class="btn btn-sm 
                                           @if ($row->status) 
-                                              btn-success bg-blue-900 text-white px-2 justify-center
+                                              btn-success bg-blue-900 text-white px-2 justify-center rounded-lg
                                           @else 
-                                              btn-danger bg-red-700 text-white px-2 justify-center
+                                              btn-danger bg-red-700 text-white px-2 justify-center rounded-lg
                                           @endif">
                                           {{ $row->status ? 'Active' : 'Inactive' }}
                                       </button>
                                   </form>
                                   </td>
-                                  <td class="px-4 py-2 text-left">
-                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-5 py-1 justify-center hover:bg-blue-600 rounded-lg">Edit</a>
-                                    <form action="{{ route('user.archive', $row->id) }}" method="POST" id="archive-form-{{ $row->id }}">
-                                        @csrf
-                                        @method('POST')
-                                        <button type="submit" class="btn btn-danger border border-bg-700 bg-red-700 text-white px-2 rounded-lg">Archive</button>
+                                  <td class="px-4 py-2">
+                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-4 py-1 justify-center hover:bg-blue-600 rounded-lg">Edit</a>
+                                    <a href="softDelete/{{$row->id}}" class="btn btn-primary bg-red-700 text-white  px-3 py-1 justify-center hover:bg-blue-600 rounded-lg">Temp</a>
+                                    <form action="{{ route('user.delete', $row->id) }}" method="POST" id="delete-form-{{ $row->id }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-danger bg-red-700 text-white px-2 justify-center hover:bg-red-600 rounded-lg" onClick="confirmDeleteUser({{ $row->id }})">Perma</button>
                                     </form>
                                   </td>
                               </tr>

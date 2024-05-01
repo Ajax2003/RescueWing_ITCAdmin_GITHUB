@@ -102,28 +102,21 @@ class AdminUserController extends Controller
         Session::flash('success', 'Admin Updated Successfully!');
         return redirect()->route('admin.useradmin');
     }
-
+    
+    public function softDelete($id) {
+        User::find($id)->delete();
+        return back;
+    }
     /**
      * Remove the specified resource from storage.
      */
-    public function archive(string $id)
+    public function destroy(string $id)
     {
-        $user = User::find($id);
+        $userData = User::findOrFail($id);
+        $userData->delete();
 
-        if ($user) {
-            $archivedUser = new ArchivedUser;
-            $archivedUser->username = $user->username;
-            $archivedUser->name = $user->name;
-            $archivedUser->email = $user->email;
-            $archivedUser->user_id = $user->id;  // Set foreign key value
-            $archivedUser->save();
-    
-            $user->status = 'inactive';
-            $user->save();  // Update user status
-    
-            return back()->with('success', 'User archived successfully!');
-        } else {
-            return back()->with('error', 'User not found!');
-        }
+        Session::flash('success', 'Admin Deleted Successfully!');
+        return redirect()->route('admin.useradmin');
     }
+
 }
