@@ -11,7 +11,20 @@ class AdminArchiveController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::onlyTrashed()->get();
         return view('admin.adminarchive', compact('users'));
     }
+    
+    public function restore($id) {
+        
+        User::whereId($id)->restore();
+        return back();
+    }
+
+    public function restoreAll($id) {
+        
+        User::onlyTrashed()->restore();
+        return back();
+    }
+
 }

@@ -91,11 +91,7 @@
         <main class="bg-blue-900 flex-1 overflow-x-hidden overflow-y-auto">
             <div class="container mx-auto px-6 py-8">
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Management</h3>
-                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Archive - Inactive Users</h3>
-                <div class ="text-end">
-                  <a href ="{{ route('user.create') }}" class="btn btn-primary px-4 py-2 mt-8 bg-white text-blue-900 border border-white text-[15px] hover:bg-blue-700 hover:text-white hover:border-blue-700 hover:bg-opacity-85">
-                  <i class="bi bi-plus-square-fill px-1"></i>Add New User</a>
-                </div>
+                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Deleted Users</h3>
                  <!-- Display success message if available -->
                 @if (session('success'))
                 <div class ="alert alert-success text-white text-[-20px]"> 
@@ -110,8 +106,8 @@
                 @endif 
                 <!-- Search input field -->
                     <div class="flex items-center mb-4">
-                        <label for="searchInput" class="mr-2 text-white">Search:</label>
-                        <input type="text" id="searchInput" class="px-4 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:ring-1" placeholder="Search by name or email">
+                        <label for="searchInput" class=" mt-2 mr-2 text-white">Search:</label>
+                        <input type="text" id="searchInput" class=" mt-4 px-4 py-2 border rounded-md focus:outline-none focus:ring-blue-500 focus:ring-1" placeholder="Search by name or email">
                     </div>
                 <div class="mt-8">
                     <!-- Start of main content -->
@@ -125,7 +121,6 @@
                                       <th class="px-4 py-2 text-left text-[15px]">Name</th>
                                       <th class="px-12 py-2 text-left text-[15px]">Email</th>
                                       <th class="px-4 py-2 text-left text-[15px]">UserType</th>
-                                      <th class="px-4 py-2 text-left text-[15px]">Status</th>
                                       <th class="px-4 py-2 text-left text-[15px]">Action</th>
                                   </tr>
                               </thead>
@@ -138,13 +133,13 @@
                                   <td class="px-4 py-2 text-left">{{$row->name}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->email}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->usertype}}</td>
-                                  <td class="px-4 py-2 text-left">{{$row->status}}</td>
                                   <td class="px-4 py-2 text-left">
-                                    <form action="{{ route('user.archive', $row->id) }}" method="POST" id="archive-form-{{ $row->id }}">
-                                        @csrf
-                                        @method('POST')
-                                        <button type="submit" class="btn btn-danger border border-bg-700 bg-red-700 text-white px-2 rounded-lg">Archive</button>
-                                    </form>
+                                  <form method="POST" action="{{ route('user.restore', $row->id) }}">
+                                    @csrf
+                                    <button type="submit" class="text-primary btn bg-blue-900 text-white px-4 py-1 justify-center hover:bg-blue-600 rounded-lg text-[15px]">
+                                      <i class="bi bi-plus-circle"></i> Restore
+                                    </button>
+                                  </form>
                                   </td>
                               </tr>
                               @empty 

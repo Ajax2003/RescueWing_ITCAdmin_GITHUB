@@ -34,10 +34,6 @@ class MapController extends Controller
                 'draggable' => true
             ]
         ];
-        return view('gps', compact('initialMarkers'));
-
-
-
-        
+        return view('facility.gps', compact('initialMarkers'));
     }
 }

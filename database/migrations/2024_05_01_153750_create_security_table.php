@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('security', function (Blueprint $table) {
             $table->id();
-            $table->string('emergency_type');
+            $table->string('security_type');
             $table->decimal('latitude', 10, 7); // Decimal format for latitude
             $table->decimal('longitude', 10, 7); // Decimal format for longitude
             $table->timestamps();

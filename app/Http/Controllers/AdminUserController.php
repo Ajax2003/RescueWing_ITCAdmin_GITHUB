@@ -104,12 +104,13 @@ class AdminUserController extends Controller
     }
     
     public function softDelete($id) {
-        User::find($id)->delete();
-        return back;
+        User::findOrFail($id)->delete();
+        return back();
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+
+
+
+
     public function destroy(string $id)
     {
         $userData = User::findOrFail($id);

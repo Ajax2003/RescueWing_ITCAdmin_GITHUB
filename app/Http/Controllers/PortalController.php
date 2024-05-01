@@ -22,7 +22,7 @@ class PortalController extends Controller
 
     public function emergency()
     {
-        return view('main');
+        return view('facility.main');
     }
 
     public function eclicked(Request $request)
@@ -149,24 +149,24 @@ class PortalController extends Controller
     public function dashboard()
     {
         // return "Welcome to your dashboard";
-        return view('dashboard');
+        return view('facility.dashboard');
     }
 
     public function security()
     {
         // return "Welcome to your dashboard";
-        return view('dashboards.securityDash');
+        return view('facility.securityDash');
     }
 
     public function medical()
     {
         // return "Welcome to your dashboard";
-        return view('dashboards.clinicDash');
+        return view('facility.clinicDash');
     }
 
     public function dashReports()
     {
         $emergencies = Emergency::all();
-        return view('dashReports', ['emergencies' => $emergencies]);
+        return view('facility.dashReports', ['emergencies' => $emergencies]);
     }
 }

@@ -8,7 +8,10 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\BarangayController;
+use App\Http\Controllers\PortalController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\MapController;
+use App\Events\Alerts;
 
 
 Route::get('/login', function () {
@@ -33,9 +36,11 @@ Route::get('admin/dashboard', [AdminController::class, 'index'])->middleware(['a
 
 //REDIRECT TO ADMINISTRATION 
 Route::get('/admin', [AdminUserController::class, 'index'])->middleware(['auth', 'admin'])->name('admin.useradmin');
-
 //REDIRECT TO ARCHIVE
 Route::get('admin/archive', [AdminArchiveController::class, 'index'])->middleware(['auth', 'admin']);
+Route::post('/restore/{id}', [AdminArchiveController::class, 'restore'])->name('user.restore');
+Route::post('/restore-all', [AdminArchiveController::class, 'restore'])->name('user.restoreAll');
+
 
 //ADD-UPDATED-DELETE OF ADMIN USERS
 Route::group(['prefix' => 'admin/user', 'middleware' => ['auth', 'admin', 'status']], function () {
@@ -43,9 +48,8 @@ Route::group(['prefix' => 'admin/user', 'middleware' => ['auth', 'admin', 'statu
     Route::post('/add', [AdminUserController::class, 'store'])->name('user.store'); // Store new user
     Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('user.edit'); // Edit user form
     Route::post('/update/{id}', [AdminUserController::class, 'update'])->name('user.update'); // Update user
-    Route::delete('/softDelete/{id}', [AdminUserController::class, 'softDelete']);
+    Route::get('/softDelete/{id}', [AdminUserController::class, 'softDelete'])->name('user.softdelete');
     Route::delete('/delete/{id}', [AdminUserController::class, 'destroy'])->name('user.delete');
-    Route::post('/user/archive/{id}', [AdminUserController::class, 'archive'])->name('user.archive');
     Route::post('admin/user/user/{id}', [StatusController::class, 'update'])->name('user.status');
 });
 
@@ -75,7 +79,6 @@ Route::get('/dashReports', [PortalController::class, 'dashReports']);
 Route::get('/security', [PortalController::class, 'security']);
 
 Route::get('/medical', [PortalController::class, 'medical']);
-
 
 Route::get('/gps', [MapController::class, 'index']);
 
