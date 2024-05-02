@@ -86,17 +86,17 @@ class AdminUserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'username' => 'required|unique:users',
+            'username' => 'required|',
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
             'usertype' => 'required|in:user,admin,barangay,facility',
-           
         ]);
     
         $user = User::findOrFail($id);
         $user->username = $request->username;
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->usertype = $request->usertype;
         $user->save();
     
         Session::flash('success', 'Admin Updated Successfully!');

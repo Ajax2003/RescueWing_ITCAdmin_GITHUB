@@ -64,16 +64,12 @@ Route::get('/adminprofile', function () {
 });
 
 
-
-
-
 //FACILITIES
 Route::get('/emergency', [PortalController::class, 'emergency']);
 Route::post('/emergency-clicked', [PortalController::class, 'eclicked'])->name('e-clicked');
 Route::post('/security-clicked', [PortalController::class, 'sclicked'])->name('s-clicked');
 Route::post('/medical-clicked', [PortalController::class, 'mclicked'])->name('m-clicked');
 
-Route::get('/dashboard', [PortalController::class, 'dashboard']);
 Route::get('/dashReports', [PortalController::class, 'dashReports']);
 
 Route::get('/security', [PortalController::class, 'security']);

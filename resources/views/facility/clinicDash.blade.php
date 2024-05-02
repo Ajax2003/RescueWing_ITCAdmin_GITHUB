@@ -25,7 +25,7 @@
             console.log("Received data:", data);
             Swal.fire({
                 title: 'EMERGENCY!',
-                html: `Medical Type: ${data.result.medical_type}<br>Name: ${data.result.name}<br>Latitude: ${data.result.latitude}<br>Longitude: ${data.result.longitude}<br><div id="map-container" style="height: 400px;"></div>`, // Container for the map
+                html: `Medical Type: ${data.result.medical_type}<br>Name: ${data.result.name}<br>Latitude: ${data.result.latitude}<br>Longitude: ${data.result.longitude}`, // Container for the map
                 icon: 'warning',
                 confirmButtonText: 'ALERT RESPONDERS',
             }).then((result) => {

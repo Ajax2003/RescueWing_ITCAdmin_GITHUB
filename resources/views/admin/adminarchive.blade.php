@@ -91,7 +91,7 @@
         <main class="bg-blue-900 flex-1 overflow-x-hidden overflow-y-auto">
             <div class="container mx-auto px-6 py-8">
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Management</h3>
-                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Deleted Users</h3>
+                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">Deleted Users - Inactive</h3>
                  <!-- Display success message if available -->
                 @if (session('success'))
                 <div class ="alert alert-success text-white text-[-20px]"> 

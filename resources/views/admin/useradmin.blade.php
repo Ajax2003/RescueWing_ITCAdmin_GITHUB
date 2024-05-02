@@ -91,7 +91,7 @@
         <main class="bg-blue-900 flex-1 overflow-x-hidden overflow-y-auto">
             <div class="container mx-auto px-6 py-8">
                 <h3 class="text-zinc-700 dark:text-zinc-200 text-sm font-medium">Management</h3>
-                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">List of Users</h3>
+                <h3 class="text-zinc-700 dark:text-zinc-200 text-3xl font-medium">List of Users - Active Users</h3>
                 <div class ="text-end">
                   <a href ="{{ route('user.create') }}" class="btn btn-primary px-4 py-2 mt-8 bg-white text-blue-900 border border-white text-[15px] hover:bg-blue-700 hover:text-white hover:border-blue-700 hover:bg-opacity-85">
                   <i class="bi bi-plus-square-fill px-1"></i>Add New User</a>
@@ -125,7 +125,6 @@
                                       <th class="px-4 py-2 text-left text-[15px]">Name</th>
                                       <th class="px-12 py-2 text-left text-[15px]">Email</th>
                                       <th class="px-4 py-2 text-left text-[15px]">UserType</th>
-                                      <th class="px-4 py-2 text-left text-[15px]">Status</th>
                                       <th class="px-4 py-2 text-left text-[15px]">Action</th>
                                   </tr>
                               </thead>
@@ -137,27 +136,15 @@
                                   <td class="px-4 py-2 text-left">{{$row->username}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->name}}</td>
                                   <td class="px-4 py-2 text-left">{{$row->email}}</td>
-                                  <td class="px-4 py-2 text-left">{{$row->usertype}}</td>
-                                  <td class="px-4 py-2 text-left">
-                                  <form action="{{ route('user.status', $row->id) }}" method="POST">
-                                      @csrf
-                                      @method('POST') <button type="submit" class="btn btn-sm 
-                                          @if ($row->status) 
-                                              btn-success bg-blue-900 text-white px-2 justify-center rounded-lg
-                                          @else 
-                                              btn-danger bg-red-700 text-white px-2 justify-center rounded-lg
-                                          @endif">
-                                          {{ $row->status ? 'Active' : 'Inactive' }}
-                                      </button>
-                                  </form>
+                                  <td class="px-4 py-2 text-left">{{$row->usertype}}</td>                    
                                   </td>
                                   <td class="px-4 py-2">
-                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-4 py-1 justify-center hover:bg-blue-600 rounded-lg">Edit</a>
-                                    <a href="{{ route('user.softdelete', $row->id) }}" class="btn btn-primary bg-orange-500 text-white  px-5 py-1 justify-center hover:bg-orange-600 rounded-lg"><i class="bi bi-trash3-fill"></i></a>
+                                    <a href="{{ route('user.edit', ['id' => $row->id]) }}" class="btn btn-primary bg-blue-900 text-white px-8 py-1 justify-center hover:bg-blue-600 rounded-lg">Edit</a>
+                                    <a href="{{ route('user.softdelete', $row->id) }}" class="btn btn-primary bg-orange-500 text-white  px-4 py-1 justify-center hover:bg-orange-600 rounded-lg">Archive</a>
                                     <form action="{{ route('user.delete', $row->id) }}" method="POST" id="delete-form-{{ $row->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger bg-red-700 text-white px-5 justify-center hover:bg-red-600 rounded-lg" onClick="confirmDeleteUser({{ $row->id }})"><i class="bi bi-trash3-fill"></i></button>
+                                    <button type="button" class="btn btn-danger bg-red-700 text-white px-5 justify-center hover:bg-red-600 rounded-lg" onClick="confirmDeleteUser({{ $row->id }})">Delete</button>
                                     </form>
                                   </td>
                               </tr>

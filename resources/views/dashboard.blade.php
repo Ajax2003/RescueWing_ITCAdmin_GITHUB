@@ -1,253 +1,158 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('RescueWing') }}
-        </h2>
-    </x-slot>
+{{-- resources/views/emergency/index.blade.php --}}
 
-    <h2 class="font-semibold text-m text-gray-800 leading-tight" style="margin-left: 20px; margin-top: 8px;">
-        {{ __('Medical') }}
-    </h2>
+<!DOCTYPE html>
+<html>
 
-    <div class="container" style="display:flex; justify-content: start; flex-wrap: wrap; margin-top:10px; margin-left: 10px">
-        <div clas="card-container" style="display:flex; justify-content: start; flex-wrap: wrap;">
+<head>
+    <title>Emergency Form</title>
+</head>
 
-            <input id="ch" type="checkbox">
+<body>
+    <!--Barangay buttons-->
+    <h1>Others</h1>
+    @if(session('success'))
+    <div>{{ session('success') }}</div>
+    @endif
+    <form id="emergencyForm" method="POST" action="{{ route('e-clicked') }}">
+        @csrf
+        <button type="button" onclick="getLocationAndSubmit('Earthquake')">Earthquake</button>
+        <button type="button" onclick="getLocationAndSubmit('Fire')">Fire</button>
+        <button type="button" onclick="getLocationAndSubmit('Flood')">Flood</button>
+    </form>
 
-            <!-- Allergy Reaction-->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Allergy Reaction_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style="font-size: 12px; text-align: center; margin-bottom: 8px;">Allergy Reaction</h3>
-                    </div>
-                </div>
-            </a>
+    <!--Security buttons-->
+    <h1>Security</h1>
+    <form id="securityForm" method="POST" action="{{ route('s-clicked') }}">
+        @csrf
+        <button type="button" onclick="getLocationAndSubmitSecurity('Theft')">Theft</button>
+        <button type="button" onclick="getLocationAndSubmitSecurity('Rape')">Rape</button>
+        <button type="button" onclick="getLocationAndSubmitSecurity('Physical Abuse')">Physical Abuse</button>
+    </form>
 
-            
-            <!-- Seizures -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Seizures_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Seizures</h3>
-                    </div>
-                </div>
-            </a>
+    <!--Medical buttons-->
+    <h1>Medical</h1>
+    <form id="medicalForm" method="POST" action="{{ route('m-clicked') }}">
+        @csrf
+        <button type="button" onclick="getLocationAndSubmitMedical('Allergy Reaction')">Allergy Reaction</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Seizures')">Seizures</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Burns')">Burns</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Fainting')">Fainting</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Asthma')">Asthma</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Nausea')">Nausea</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Poison')">Poison</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Bleed')">Bleed</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Sprain')">Sprain</button>
+        <button type="button" onclick="getLocationAndSubmitMedical('Fracture')">Fracture</button>
 
-            <!-- Burns -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Burns_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Burns</h3>
-                    </div>
-                </div>
-            </a>
+    </form>
+        <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                        <i class="bi bi-box-arrow-right"></i>
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+</body>
+<script>
+        function getLocationAndSubmit(emergencyType) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    // Create hidden inputs for latitude, longitude, emergency type, and medical type
+                    var latitudeInput = document.createElement('input');
+                    latitudeInput.type = 'hidden';
+                    latitudeInput.name = 'latitude';
+                    latitudeInput.value = position.coords.latitude;
 
-            <style>
-                #ch {
-                    display: none;
-                }
+                    var longitudeInput = document.createElement('input');
+                    longitudeInput.type = 'hidden';
+                    longitudeInput.name = 'longitude';
+                    longitudeInput.value = position.coords.longitude;
 
-                #ch:checked ~ .content {
-                    display: block;
-                }
-
-                .content {
-                    display: none;
-                }
-
-                #ch:checked ~ label {
-                    display:none;
-                }
-
-                @media only screen and (min-width: 1000px) and (max-width: 2000px) {
-                    label {
-                        display: none;
-                    }
-
-                    .content {
-                        display: block;
-                    }
-                }
-            </style>
-
-            <div class="content">
-                <div class="container" style="display:flex; justify-content: start; flex-wrap: wrap;">
-                    <div clas="card-container" style="display:flex; justify-content: start; flex-wrap: wrap;">
-                        <!-- Fainting -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Fainting</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Asthma -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Asthma</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Nausea -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Nausea</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Poison -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Poison</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Bleed -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Bleed</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Sprain -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;">Sprain</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- Fracture -->
-                        <a href="#">
-                            <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                                <img src="images/Choking_1.png" alt="">
-                                <div class="card-content" style="padding: 2px;">
-                                    <h3 style=" font-size: 12px;text-align:center;">Fracture</h3>
-                                </div>
-                            </div>
-                        </a>
-
-                        <label for="ch" style="cursor:pointer; margin-left: 4px; margin-top:12px; width: 80px; height: 80px; overflow: auto;">
-                            <img src="images/OSA.png" alt="">
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <label for="ch" style="cursor:pointer; margin-left: 4px; margin-top:12px; width: 80px; height: 80px; overflow: auto;">
-                <img src="images/Allergy Reaction_1.png" alt="">
-            </label>
-        </div>
-
-    </div>
-
-    <h2 class="font-semibold text-m text-gray-800 leading-tight" style="margin-left: 20px; margin-top: 8px;">
-        {{ __('Crime') }}
-    </h2>
-
-    <div class="container" style="display:flex; justify-content: start; flex-wrap: wrap; margin-top:10px; margin-left: 10px">
-        <div clas="card-container" style="display:flex; justify-content: start; flex-wrap: wrap;">
-
-            <!-- Theft-->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Allergy Reaction_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style="font-size: 12px; text-align: center ;">Theft</h3>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Rape -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Seizures_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;">Rape</h3>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Physical Abuse -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Burns_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;">Physical Abuse</h3>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-    </div>
-
-    <h2 class="font-semibold text-m text-gray-800 leading-tight" style="margin-left: 20px;">
-        {{ __('Others') }}
-    </h2>
-
-    <div class="container" style="display:flex; justify-content: start; flex-wrap: wrap; margin-left: 10px; padding-bottom: 7vh;">
-        <div clas="card-container" style="display:flex; justify-content: start; flex-wrap: wrap;">
-
-            <!-- Fire-->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Allergy Reaction_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style="font-size: 12px; text-align: center; margin-bottom: 8px;">Fire</h3>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Earthquake -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Seizures_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Earthquake</h3>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Flood -->
-            <a href="#">
-                <div class="card" style="width: 70px; overflow: auto; margin:10px; ">
-                    <img src="images/Burns_1.png" alt="">
-                    <div class="card-content" style="padding: 2px;">
-                        <h3 style=" font-size: 12px;text-align:center;margin-bottom:8px;">Flood</h3>
-                    </div>
-                </div>
-            </a>
-
-            <div class="min-h-60 bg-gray-100">
-                <div class="min-h-60 bg-gray-100">
-                
-                </div>  
-            </div>  
-        </div>
-
-    </div>
+                    var emergencyTypeInput = document.createElement('input');
+                    emergencyTypeInput.type = 'hidden';
+                    emergencyTypeInput.name = 'emergency_type';
+                    emergencyTypeInput.value = emergencyType;
 
 
+                    // Append the hidden inputs to the form
+                    var form = document.getElementById('emergencyForm');
+                    form.appendChild(latitudeInput);
+                    form.appendChild(longitudeInput);
+                    form.appendChild(emergencyTypeInput);
 
-    <x-slot name="footer">
-     
-    </x-slot>
-</x-app-layout>
+                    // Submit the form
+                    form.submit();
+                }, function(error) {
+                    console.log('Error getting geolocation:', error.message);
+                });
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+            }
+        }
+
+
+        function getLocationAndSubmitSecurity(securityType) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitudeInput = document.createElement('input');
+                    latitudeInput.type = 'hidden';
+                    latitudeInput.name = 'latitude';
+                    latitudeInput.value = position.coords.latitude;
+
+                    var longitudeInput = document.createElement('input');
+                    longitudeInput.type = 'hidden';
+                    longitudeInput.name = 'longitude';
+                    longitudeInput.value = position.coords.longitude;
+
+                    var securityTypeInput = document.createElement('input');
+                    securityTypeInput.type = 'hidden';
+                    securityTypeInput.name = 'security_type';
+                    securityTypeInput.value = securityType;
+
+                    var form = document.getElementById('securityForm');
+                    form.appendChild(latitudeInput);
+                    form.appendChild(longitudeInput);
+                    form.appendChild(securityTypeInput);
+                    form.submit();
+                }, function(error) {
+                    console.log('Error getting geolocation:', error.message);
+                });
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+            }
+        }
+
+        function getLocationAndSubmitMedical(medicalType) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitudeInput = document.createElement('input');
+                    latitudeInput.type = 'hidden';
+                    latitudeInput.name = 'latitude';
+                    latitudeInput.value = position.coords.latitude;
+
+                    var longitudeInput = document.createElement('input');
+                    longitudeInput.type = 'hidden';
+                    longitudeInput.name = 'longitude';
+                    longitudeInput.value = position.coords.longitude;
+
+                    var medicalTypeInput = document.createElement('input');
+                    medicalTypeInput.type = 'hidden';
+                    medicalTypeInput.name = 'medical_type';
+                    medicalTypeInput.value = medicalType;
+
+                    var form = document.getElementById('medicalForm');
+                    form.appendChild(latitudeInput);
+                    form.appendChild(longitudeInput);
+                    form.appendChild(medicalTypeInput);
+                    form.submit();
+                }, function(error) {
+                    console.log('Error getting geolocation:', error.message);
+                });
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+            }
+        }
+    </script>
+</html>
